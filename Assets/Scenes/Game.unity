@@ -1011,6 +1011,7 @@ MonoBehaviour:
   score: {fileID: 1679283856}
   gameManager: {fileID: 893397840}
   fishDied: {fileID: -101302044, guid: 61abfc7021bde294c8ed5e0d81350f7d, type: 3}
+  obstacleSpawner: {fileID: 417332830}
 --- !u!95 &962183321
 Animator:
   serializedVersion: 5
@@ -1675,6 +1676,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18029c15682acb541849ab1bcf5aa9d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panelScore: {fileID: 131590769}
+  panelHighScore: {fileID: 1559792084}
 --- !u!1 &1715873684
 GameObject:
   m_ObjectHideFlags: 0

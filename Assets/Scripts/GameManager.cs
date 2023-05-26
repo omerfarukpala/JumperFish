@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static bool gameOver;
     public GameObject gameOverPanel;
 
-
+    public static bool gameStarted; 
 
     private void Awake ()
     {
@@ -24,7 +24,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gameOver = false;
+        gameStarted = false;
     }
+
+    public void GameHasStarted ()
+    {
+        gameStarted = true;
+    }
+
     public void GameOver ()
     {
         gameOver = true;
