@@ -19,6 +19,8 @@ public class Fish : MonoBehaviour
     Animator anim;
     public ObstacleSpawner obstacleSpawner;
 
+    [SerializeField] private AudioSource swim,hit,point;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,9 +44,10 @@ public class Fish : MonoBehaviour
 
     private void FishSwim ()
     {
-        if(Input.GetMouseButtonDown(0) && GameManager.gameOver == false)
+        if(Input.GetMouseButtonDown(0) && GameManager.gameOver == false)                    //oyun sonlanmadýðýnda veya týklandýðýnda
         {
-            if(GameManager.gameStarted == false)
+            swim.Play ();
+            if(GameManager.gameStarted == false)                                            //oyun baþlamamýþsa
             {
                 _rb.gravityScale = 4f;
                 _rb.velocity = Vector2.zero;
@@ -52,7 +55,7 @@ public class Fish : MonoBehaviour
                 obstacleSpawner.InstantiateObstacle ();
                 gameManager.GameHasStarted ();
             }
-            else
+            else                                                                            //oyun baþladýðýnda
             {
                 _rb.velocity = Vector3.zero;
                 _rb.velocity = new Vector2 (_rb.velocity.x, _speed);
@@ -61,7 +64,7 @@ public class Fish : MonoBehaviour
         }
     }
 
-    private void FishRotation ()
+    private void FishRotation ()                                                            //balýk yüzerken aþaðý yukarý hareketi
     {
         if(_rb.velocity.y > 0)
         {
@@ -87,15 +90,17 @@ public class Fish : MonoBehaviour
     }
     private void OnTriggerEnter2D (Collider2D collision)
     {
-        if(collision.CompareTag("Obstacle"))
+        if(collision.CompareTag("Obstacle"))                                                 //sayý kazandýðýmýz box.
         {
             //Debug.Log ("scored");
             score.Scored();
+            point.Play();
         }
-        else if(collision.CompareTag ("Column"))
+        else if(collision.CompareTag ("Column") && GameManager.gameOver == false)           //oyun bir kez bittiðinde alttaki sesi her temasta duymak istmiyoruz.
         {
             //gameover
-            gameManager.GameOver();
+            gameManager.GameOver();                                                         // oyun bitti.
+            FishDieEffect ();                                                               //hit voice.   
         }
         
     }
@@ -107,14 +112,21 @@ public class Fish : MonoBehaviour
             {
                 //gameover
                 gameManager.GameOver ();
+                FishDieEffect ();
             }
             else
             {
                 //gameover (fish)
                 GameOver();
+                
             } 
             
         }
+    }
+
+    void FishDieEffect()
+    {
+        hit.Play();
     }
 
     void GameOver ()

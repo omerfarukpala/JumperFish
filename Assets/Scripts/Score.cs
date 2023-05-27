@@ -12,7 +12,13 @@ public class Score : MonoBehaviour
 
     public Text panelScore;
     public Text panelHighScore;
+    public GameObject New;
 
+
+    public int GetScore ()
+    {
+        return score;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -22,8 +28,8 @@ public class Score : MonoBehaviour
         scoreText.text = score.ToString();
         panelScore.text = score.ToString();
 
-        PlayerPrefs.GetInt ("highScore", highScore);
-        panelHighScore.text = score.ToString();
+        highScore = PlayerPrefs.GetInt ("highscore");
+        panelHighScore.text = highScore.ToString();
     }
     public void Scored()
     {
@@ -34,7 +40,9 @@ public class Score : MonoBehaviour
         {
             highScore = score;
             panelHighScore.text = score.ToString();
-            PlayerPrefs.SetInt ("highScore", highScore);
+            PlayerPrefs.SetInt ("highscore", highScore);
+            New.SetActive (true);
+
         }
 
     }
